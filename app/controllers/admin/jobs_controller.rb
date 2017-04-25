@@ -4,7 +4,7 @@ class Admin::JobsController < ApplicationController
   layout "admin"
 
   def index
-    @jobs = Job.all.order("created_at DESC")
+    @jobs = Job.all.order("created_at DESC").paginate(:page => params[:page], :per_page => 5)
   end
 
   def show
@@ -58,7 +58,7 @@ class Admin::JobsController < ApplicationController
   private
 
   def job_params
-    params.require(:job).permit(:title, :description, :wage_lower_bound, :wage_upper_bound, :contact_email, :is_hidden)
+    params.require(:job).permit(:title, :description, :wage_lower_bound, :wage_upper_bound, :contact_email, :is_hidden, :company_name, :location, :published_time)
   end
 
 end
